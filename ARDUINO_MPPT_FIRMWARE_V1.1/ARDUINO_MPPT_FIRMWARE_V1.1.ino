@@ -149,7 +149,7 @@ telemCounterReset       = 0,           //  USER PARAMETER - Reset Telem Data Eve
 errorTimeLimit          = 1000,        //  USER PARAMETER - Time interval for reseting error counter (milliseconds)  
 errorCountLimit         = 5,           //  USER PARAMETER - Maximum number of errors  
 millisRoutineInterval   = 250,         //  USER PARAMETER - Time Interval Refresh Rate For Routine Functions (ms)
-millisSerialInterval    = 1,           //  USER PARAMETER - Time Interval Refresh Rate For USB Serial Datafeed (ms)
+millisSerialInterval    = 5000,           //  USER PARAMETER - Time Interval Refresh Rate For USB Serial Datafeed (ms)
 millisLCDInterval       = 1000,        //  USER PARAMETER - Time Interval Refresh Rate For LCD Display (ms)
 millisWiFiInterval      = 2000,        //  USER PARAMETER - Time Interval Refresh Rate For WiFi Telemetry (ms)
 millisLCDBackLInterval  = 2000,        //  USER PARAMETER - Time Interval Refresh Rate For WiFi Telemetry (ms)
@@ -157,9 +157,9 @@ backlightSleepMode      = 0,           //  USER PARAMETER - 0 = Never, 1 = 10sec
 baudRate                = 115200;      //  USER PARAMETER - USB Serial Baud Rate (bps)
 
 float 
-voltageBatteryMax       = 24.0000,     //   USER PARAMETER - Maximum Battery Charging Voltage (Output V)
+voltageBatteryMax       = 21.7500,     //   USER PARAMETER - Maximum Battery Charging Voltage (Output V), ref: https://www.batteryspace.com/highpowerpolymerli-ionbattery185v21ah3885wh30aratewithpcm.aspx
 voltageBatteryMin       = 16.8000,     //   USER PARAMETER - Minimum Battery Charging Voltage (Output V)
-currentCharging         = 6.0000,     //   USER PARAMETER - Maximum Charging Current (A - Output)
+currentCharging         = 10.0000,     //   USER PARAMETER - Maximum Charging Current (A - Output), ref: https://www.batteryspace.com/polymer-li-ion-cell-3-7v-21ah-1055275-2c-77-7wh-42a-rate---un38-3-passed-dgr.aspx
 electricalPrice         = 9.5000;      //   USER PARAMETER - Input electrical price per kWh (Dollar/kWh,Euro/kWh,Peso/kWh)
 
 
@@ -314,6 +314,7 @@ void setup() {
   
   //SERIAL INITIALIZATION          
   Serial.begin(baudRate);                                   //Set serial baud rate
+  Serial2.begin(baudRate, SERIAL_8N1, 2, 3);
   Serial.println("> Serial Initialized");                   //Startup message
   
   //GPIO PIN INITIALIZATION
