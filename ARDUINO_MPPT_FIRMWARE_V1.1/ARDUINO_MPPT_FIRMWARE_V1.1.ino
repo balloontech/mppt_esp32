@@ -314,7 +314,7 @@ void setup() {
   
   //SERIAL INITIALIZATION          
   Serial.begin(baudRate);                                   //Set serial baud rate
-  Serial2.begin(baudRate, SERIAL_8N1, 2, 3);
+  Serial2.begin(baudRate, SERIAL_8N1, 16, 15);
   Serial.println("> Serial Initialized");                   //Startup message
   
   //GPIO PIN INITIALIZATION

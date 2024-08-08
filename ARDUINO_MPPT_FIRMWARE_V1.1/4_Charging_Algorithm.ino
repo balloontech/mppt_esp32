@@ -52,14 +52,14 @@ void Charging_Algorithm(){
         PWM_Modulation();                                                            //Set PWM signal to Buck PWM GPIO       
       }     
         /////////////////////// MPPT & CC-CV CHARGING ALGORITHM ///////////////////////  
-      else{                                                                                                                                                         
+      else{                                                                            // Ref: https://content.instructables.com/FZ8/OLMD/KT5SS70W/FZ8OLMDKT5SS70W.jpg                                                                             
         if(currentOutput>currentCharging){PWM--;}                                      //Current Is Above → Decrease Duty Cycle
         else if(voltageOutput>voltageBatteryMax){PWM--;}                               //Voltage Is Above → Decrease Duty Cycle   
         else{                                                                          //MPPT ALGORITHM
-          if(powerInput>powerInputPrev && voltageInput>voltageInputPrev)     {PWM--;}  //  ↑P ↑V ; →MPP  //D--
-          else if(powerInput>powerInputPrev && voltageInput<voltageInputPrev){PWM++;}  //  ↑P ↓V ; MPP←  //D++
-          else if(powerInput<powerInputPrev && voltageInput>voltageInputPrev){PWM++;}  //  ↓P ↑V ; MPP→  //D++
-          else if(powerInput<powerInputPrev && voltageInput<voltageInputPrev){PWM--;}  //  ↓P ↓V ; ←MPP  //D--
+          if(powerInput>powerInputPrev && voltageInput>voltageInputPrev)     {PWM--;}  //  ↑P ↑V ; →MPP  //D-- CASE 3
+          else if(powerInput>powerInputPrev && voltageInput<voltageInputPrev){PWM++;}  //  ↑P ↓V ; MPP←  //D++ CASE 2
+          else if(powerInput<powerInputPrev && voltageInput>voltageInputPrev){PWM++;}  //  ↓P ↑V ; MPP→  //D++ CASE 1
+          else if(powerInput<powerInputPrev && voltageInput<voltageInputPrev){PWM--;}  //  ↓P ↓V ; ←MPP  //D-- CASE 4
           else if(voltageOutput<voltageBatteryMax)                           {PWM++;}  //  MP MV ; MPP Reached - 
           powerInputPrev   = powerInput;                                               //Store Previous Recorded Power
           voltageInputPrev = voltageInput;                                             //Store Previous Recorded Voltage        
